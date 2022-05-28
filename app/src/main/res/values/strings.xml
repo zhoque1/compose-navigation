@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ComposeDemo</string>
+
+    <!-- Accessibility strings -->
+    <string name="a11y_bottom_navigation_bar">Bottom navigation bar with Having actions </string>
+
+    <string name="navigation_item_home">Home</string>
+    <string name="navigation_item_widgets">Widget</string>
+    <string name="navigation_item_animation">Anim</string>
+    <string name="navigation_item_demoui">Demo</string>
+    <string name="navigation_item_template">Tmplt</string>
+
+</resources>
