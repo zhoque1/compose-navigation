@@ -4,10 +4,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
-class ExampleViewModel (
+class ExampleOfRootViewModel (
 ) : ViewModel() {
 
-    val myCount: MutableState<Int> = mutableStateOf(1)
+    val exampleCount: MutableState<Int> = mutableStateOf(1)
 }
 
 

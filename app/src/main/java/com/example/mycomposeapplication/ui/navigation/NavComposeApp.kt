@@ -22,13 +22,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.mycomposeapplication.ui.screens.*
+import com.example.mycomposeapplication.ui.screens.home.ExampleOfRootViewModel
 import com.example.mycomposeapplication.ui.theme.*
+import org.koin.androidx.compose.viewModel
 
 
 @Composable
 fun NavComposeApp() {
     val navController = rememberNavController()
-
+    val exampleOfRootViewModel: ExampleOfRootViewModel by viewModel()
 
 
     NavHost(navController = navController, startDestination = NavConstants.Home.route) {
@@ -40,14 +42,14 @@ fun NavComposeApp() {
         composable(NavConstants.Template.route) { TemplateScreen(navController) }
 
         //sub screens
-        composable(SubNavConstants.HomeDetail.route) { HomeDetailScreen(navController) }
+        composable(SubNavConstants.HomeDetail.route) { HomeDetailScreen(navController, exampleOfRootViewModel) }
         composable(SubNavConstants.StateExample.route) { StateExampleScreen(navController) }
 
 
-        composable(SubNavConstants.WidgetsDetail.route) { WidgetDetail(navController) }
-        composable(SubNavConstants.AnimationDetail.route) { AnimationDetail(navController) }
-        composable(SubNavConstants.DemoUIDetail.route) { DemoDetail(navController) }
-        composable(SubNavConstants.TemplateDetail.route) { TemplateDetail(navController) }
+        composable(SubNavConstants.WidgetsDetail.route) { WidgetDetail(navController, exampleOfRootViewModel) }
+        composable(SubNavConstants.AnimationDetail.route) { AnimationDetail(navController, exampleOfRootViewModel) }
+        composable(SubNavConstants.DemoUIDetail.route) { DemoDetail(navController, exampleOfRootViewModel) }
+        composable(SubNavConstants.TemplateDetail.route) { TemplateDetail(navController, exampleOfRootViewModel) }
     }
 }
 

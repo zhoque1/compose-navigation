@@ -8,49 +8,73 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.example.mycomposeapplication.ui.navigation.NavConstants
-import com.example.mycomposeapplication.ui.screens.home.ExampleViewModel
+import com.example.mycomposeapplication.ui.screens.home.ExampleOfRootViewModel
+import com.example.mycomposeapplication.ui.screens.home.HomeDetailViewModel
 import org.koin.androidx.compose.viewModel
 
 @Composable
-fun HomeDetailScreen(navController: NavController) {
-    val exampleViewModel: ExampleViewModel by viewModel()
+fun HomeDetailScreen(navController: NavController, exampleOfRootViewModel: ExampleOfRootViewModel) {
+    val exampleCount = exampleOfRootViewModel.exampleCount
 
-    val myCount = exampleViewModel.myCount
+    val homeDetailViewModel: HomeDetailViewModel by viewModel()
+    val homeDetailCount = homeDetailViewModel.homeDetailCount
 
     Column {
         Button(onClick = { navController.navigate(NavConstants.Home.route) }) {
             Text(text = "Back to Home")
         }
         Spacer(modifier = Modifier.size(20.dp))
-//        val myCount: MutableState<Int> =  mutableStateOf(1)
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { exampleCount.value += 1 },
+            textAlign = TextAlign.Center,
+            fontSize = 30.sp,
+            text = "State from root view model",
+        )
         Button(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
             onClick = {
-                myCount.value = 10
+                exampleCount.value = 10
             }
         ) {
             Text(text = "Reset me")
         }
         Spacer(modifier = Modifier.size(10.dp))
-        println("Test="+ myCount.value.toString())
+//        println("Test="+ exampleCount.value.toString())
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { myCount.value += 1 },
+                .clickable { exampleCount.value += 1 },
             textAlign = TextAlign.Center,
             fontSize = 30.sp,
-            text = "${myCount.value}",
+            text = "${exampleCount.value}",
+        )
+
+        Spacer(modifier = Modifier.size(20.dp))
+        Text(
+            modifier = Modifier
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            fontSize = 30.sp,
+            text = "State from local view model",
+        )
+        Spacer(modifier = Modifier.size(10.dp))
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { homeDetailCount.value += 1 },
+            textAlign = TextAlign.Center,
+            fontSize = 30.sp,
+            text = "${homeDetailCount.value}",
         )
         
     }
