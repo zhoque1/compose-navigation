@@ -29,6 +29,8 @@ import com.example.mycomposeapplication.ui.theme.*
 fun NavComposeApp() {
     val navController = rememberNavController()
 
+
+
     NavHost(navController = navController, startDestination = NavConstants.Home.route) {
         //root screens
         composable(NavConstants.Home.route) { HomeScreen(navController) }
@@ -38,7 +40,10 @@ fun NavComposeApp() {
         composable(NavConstants.Template.route) { TemplateScreen(navController) }
 
         //sub screens
-        composable(SubNavConstants.HomeDetail.route) { HomeDetail(navController) }
+        composable(SubNavConstants.HomeDetail.route) { HomeDetailScreen(navController) }
+        composable(SubNavConstants.StateExample.route) { StateExampleScreen(navController) }
+
+
         composable(SubNavConstants.WidgetsDetail.route) { WidgetDetail(navController) }
         composable(SubNavConstants.AnimationDetail.route) { AnimationDetail(navController) }
         composable(SubNavConstants.DemoUIDetail.route) { DemoDetail(navController) }

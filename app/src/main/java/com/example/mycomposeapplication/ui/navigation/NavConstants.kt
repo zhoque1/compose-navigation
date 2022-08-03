@@ -14,6 +14,9 @@ sealed class NavConstants(val route: String, @StringRes val resourceId: Int){
 
 sealed class SubNavConstants(val route: String){
     object HomeDetail : SubNavConstants("HomeDetail")
+    object StateExample : SubNavConstants("StateExample")
+
+
     object WidgetsDetail : SubNavConstants("WidgetDetail")
     object AnimationDetail : SubNavConstants("AnimationDetail")
     object DemoUIDetail : SubNavConstants("DemoDetail")

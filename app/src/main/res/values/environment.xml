@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Map Key-->
+    <string name="map_api_key" translatable="false">AIzaSyC9unnZkrR3WwGk9e6vg_9Cd93fiS2TwFQ</string>
+
+</resources>
