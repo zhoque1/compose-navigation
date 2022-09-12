@@ -14,13 +14,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mycomposeapplication.ui.navigation.NavConstants
-import com.example.mycomposeapplication.ui.screens.home.ExampleOfRootViewModel
+import com.example.mycomposeapplication.ui.GlobalViewModel
 import com.example.mycomposeapplication.ui.screens.home.HomeDetailViewModel
 import org.koin.androidx.compose.viewModel
 
 @Composable
-fun WidgetDetail(navController: NavController, exampleOfRootViewModel: ExampleOfRootViewModel) {
-    val exampleCount = exampleOfRootViewModel.exampleCount
+fun WidgetDetail(navController: NavController, exampleOfRootViewModel: GlobalViewModel) {
+    val exampleCount = exampleOfRootViewModel.getRootCount()
 
     val homeDetailViewModel: HomeDetailViewModel by viewModel()
     val homeDetailCount = homeDetailViewModel.homeDetailCount

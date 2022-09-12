@@ -22,7 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.mycomposeapplication.ui.screens.*
-import com.example.mycomposeapplication.ui.screens.home.ExampleOfRootViewModel
+import com.example.mycomposeapplication.ui.GlobalViewModel
 import com.example.mycomposeapplication.ui.theme.*
 import org.koin.androidx.compose.viewModel
 
@@ -30,7 +30,7 @@ import org.koin.androidx.compose.viewModel
 @Composable
 fun NavComposeApp() {
     val navController = rememberNavController()
-    val exampleOfRootViewModel: ExampleOfRootViewModel by viewModel()
+    val exampleOfRootViewModel: GlobalViewModel by viewModel()
 
 
     NavHost(navController = navController, startDestination = NavConstants.Home.route) {

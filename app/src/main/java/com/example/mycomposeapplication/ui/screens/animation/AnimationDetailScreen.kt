@@ -14,14 +14,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mycomposeapplication.ui.navigation.NavConstants
-import com.example.mycomposeapplication.ui.screens.home.ExampleOfRootViewModel
+import com.example.mycomposeapplication.ui.GlobalViewModel
 
 @Composable
-fun TemplateDetail(navController: NavController, exampleOfRootViewModel: ExampleOfRootViewModel) {
-    val exampleCount = exampleOfRootViewModel.exampleCount
+fun AnimationDetail(navController: NavController, exampleOfRootViewModel: GlobalViewModel) {
+    val exampleCount = exampleOfRootViewModel.getRootCount()
     Column {
-        Button(onClick = { navController.navigate(NavConstants.Template.route) }) {
-            Text(text = "Back to Template")
+        Button(onClick = { navController.navigate(NavConstants.Animation.route) }) {
+            Text(text = "Back to Animation")
         }
         Spacer(modifier = Modifier.size(20.dp))
         Text(
