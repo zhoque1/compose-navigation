@@ -25,6 +25,7 @@ import com.example.mycomposeapplication.ui.screens.*
 import com.example.mycomposeapplication.ui.GlobalViewModel
 import com.example.mycomposeapplication.ui.theme.*
 import org.koin.androidx.compose.viewModel
+import timber.log.Timber
 
 
 @Composable
@@ -35,11 +36,26 @@ fun NavComposeApp() {
 
     NavHost(navController = navController, startDestination = NavConstants.Home.route) {
         //root screens
-        composable(NavConstants.Home.route) { HomeScreen(navController) }
-        composable(NavConstants.Widgets.route) { WidgetsScreen(navController) }
-        composable(NavConstants.Animation.route) { AnimationScreen(navController) }
-        composable(NavConstants.DemoUI.route) { DemoScreen(navController) }
-        composable(NavConstants.Template.route) { TemplateScreen(navController) }
+        composable(NavConstants.Home.route) {
+            Timber.d("event = getting call twoice Home")
+            HomeScreen(navController)
+        }
+        composable(NavConstants.Widgets.route) {
+            Timber.d("event = getting call twoice Widgets")
+            WidgetsScreen(navController)
+        }
+        composable(NavConstants.Animation.route) {
+            Timber.d("event = getting call twoice Animation")
+            AnimationScreen(navController)
+        }
+        composable(NavConstants.DemoUI.route) {
+            Timber.d("event = getting call twoice DemoUI")
+            DemoScreen(navController)
+        }
+        composable(NavConstants.Template.route) {
+            Timber.d("event = getting call twoice Template")
+            TemplateScreen(navController)
+        }
 
         //sub screens
         composable(SubNavConstants.HomeDetail.route) { HomeDetailScreen(navController, exampleOfRootViewModel) }
@@ -83,11 +99,10 @@ fun BottomAppNavBar(navController: NavHostController, bottomNavigationItems: Lis
             contentColor = MaterialTheme.colors.primary,
             elevation = 10.dp,
         ) {
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentDestination = navBackStackEntry?.destination
             bottomNavigationItems.forEach { screen ->
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
-                val isSelected =
-                    currentDestination?.hierarchy?.any { it.route == screen.route } == true
+                val isSelected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
 
                 BottomNavigationItem(
                     icon = { Icon(imageVector = Icons.Filled.Search, contentDescription = null) },
