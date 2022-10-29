@@ -17,7 +17,7 @@ import com.example.mycomposeapplication.ui.navigation.NavConstants
 import com.example.mycomposeapplication.ui.GlobalViewModel
 
 @Composable
-fun AnimationDetail(navController: NavController, exampleOfRootViewModel: GlobalViewModel) {
+fun AnimationDetailScreen(navController: NavController, exampleOfRootViewModel: GlobalViewModel) {
     val exampleCount = exampleOfRootViewModel.getRootCount()
     Column {
         Button(onClick = { navController.navigate(NavConstants.Animation.route) }) {

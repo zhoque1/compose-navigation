@@ -19,7 +19,7 @@ import com.example.mycomposeapplication.ui.screens.home.HomeDetailViewModel
 import org.koin.androidx.compose.viewModel
 
 @Composable
-fun WidgetDetail(navController: NavController, exampleOfRootViewModel: GlobalViewModel) {
+fun WidgetDetailScreen(navController: NavController, exampleOfRootViewModel: GlobalViewModel) {
     val exampleCount = exampleOfRootViewModel.getRootCount()
 
     val homeDetailViewModel: HomeDetailViewModel by viewModel()

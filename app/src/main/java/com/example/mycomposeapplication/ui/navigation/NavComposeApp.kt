@@ -16,7 +16,9 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -62,10 +64,10 @@ fun NavComposeApp() {
         composable(SubNavConstants.StateExample.route) { StateExampleScreen(navController) }
 
 
-        composable(SubNavConstants.WidgetsDetail.route) { WidgetDetail(navController, exampleOfRootViewModel) }
-        composable(SubNavConstants.AnimationDetail.route) { AnimationDetail(navController, exampleOfRootViewModel) }
-        composable(SubNavConstants.DemoUIDetail.route) { DemoDetail(navController, exampleOfRootViewModel) }
-        composable(SubNavConstants.TemplateDetail.route) { TemplateDetail(navController, exampleOfRootViewModel) }
+        composable(SubNavConstants.WidgetsDetail.route) { WidgetDetailScreen(navController, exampleOfRootViewModel) }
+        composable(SubNavConstants.AnimationDetail.route) { AnimationDetailScreen(navController, exampleOfRootViewModel) }
+        composable(SubNavConstants.DemoUIDetail.route) { DemoDetailScreen(navController, exampleOfRootViewModel) }
+        composable(SubNavConstants.TemplateDetail.route) { TemplateDetailScreen(navController, exampleOfRootViewModel) }
     }
 }
 
@@ -129,20 +131,30 @@ fun BottomAppNavBar(navController: NavHostController, bottomNavigationItems: Lis
                     } else Modifier,
                     onClick = {
                         navController.navigate(screen.route) {
-                            // Pop up to the start destination of the graph to
-                            // avoid building up a large stack of destinations
-                            // on the back stack as users select items
-                            popUpTo(navController.graph.startDestinationId)
-                            // Avoid multiple copies of the same destination when
-                            // reselecting the same item
-                            launchSingleTop = true
-                            // Restore state when reselecting a previously selected item
-                            restoreState = true
+                            handleNavigationToTopDestination(this, navController)
                         }
                     }
                 )
             }
         }
     }
+}
 
+/**
+ * @param navOptionsBuilder handle Navigation To TopDestination that allows us to save the state of the screens
+ * This is needed if you are navigating outside Bottom bar clicks to any bottom nav tabs
+ * Example Home, Search and More
+ */
+fun handleNavigationToTopDestination(navOptionsBuilder: NavOptionsBuilder, navController: NavHostController) {
+    // Pop up to the start destination of the graph to
+    // avoid building up a large stack of destinations
+    // on the back stack as users select items
+    navOptionsBuilder.popUpTo(navController.graph.findStartDestination().id) {
+        saveState = true
+    }
+    // Avoid multiple copies of the same destination when
+    // reselecting the same item
+    navOptionsBuilder.launchSingleTop = true
+    // Restore state when reselecting a previously selected item
+    navOptionsBuilder.restoreState = true
 }

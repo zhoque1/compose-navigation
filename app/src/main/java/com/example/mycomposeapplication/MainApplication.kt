@@ -1,6 +1,9 @@
 package com.example.mycomposeapplication
 
 import android.app.Application
+import com.example.mycomposeapplication.data.di.apiModule
+import com.example.mycomposeapplication.data.di.repositoryModule
+import com.example.mycomposeapplication.data.di.useCaseModule
 import com.example.mycomposeapplication.di.viewModelModule
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -19,7 +22,12 @@ class MainApplication : Application(){
         startKoin{
             androidLogger(Level.ERROR)
             androidContext(this@MainApplication)
-            modules(viewModelModule)
+            modules(
+                apiModule,
+                repositoryModule,
+                useCaseModule,
+                viewModelModule
+            )
         }
     }
 }
