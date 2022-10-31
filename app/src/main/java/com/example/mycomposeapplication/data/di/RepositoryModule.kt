@@ -3,7 +3,6 @@ package com.example.mycomposeapplication.data.di
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.example.mycomposeapplication.data.GalleryApi
-import com.example.mycomposeapplication.data.network.mappers.ApiImageItemsMapper
 import com.example.mycomposeapplication.data.network.mappers.ApiMapper
 import com.example.mycomposeapplication.data.network.models.ApiGalleryItem
 import com.example.mycomposeapplication.data.paging.GalleryDataSource
@@ -28,7 +27,8 @@ val repositoryModule = module {
 
         ) as GalleryRepository
     }
-    single { ImageRepositoryImpl(
+    single {
+        ImageRepositoryImpl(
             apiService = get(),
             imageItemsMapper = get(named("ApiImageItemsMapper"))
         ) as ImageRepository

@@ -19,7 +19,7 @@ interface GalleryApi {
     ): Response<List<ApiGalleryItem>>
 
     @GET("https://jsonplaceholder.typicode.com/albums/{id}/photos/")
-    suspend fun getImages(@Path("id") id: Int): Response<ApiImageItems>
+    suspend fun getImages(@Path("id") id: Int): Response<ArrayList<ApiImageItem>>
 
     @GET("https://picsum.photos/200/300?grayscale")
     suspend fun getRandomGrayScaleImage(): Response<ApiGalleryItem>

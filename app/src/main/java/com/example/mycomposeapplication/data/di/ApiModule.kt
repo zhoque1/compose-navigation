@@ -12,6 +12,7 @@ import com.example.mycomposeapplication.data.network.mappers.ApiGalleryItemMappe
 import com.example.mycomposeapplication.data.network.mappers.ApiImageItemsMapper
 import com.example.mycomposeapplication.data.network.mappers.ApiMapper
 import com.example.mycomposeapplication.data.network.models.ApiGalleryItem
+import com.example.mycomposeapplication.data.network.models.ApiImageItem
 import com.example.mycomposeapplication.data.network.models.ApiImageItems
 import com.example.mycomposeapplication.domain.models.GalleryImage
 import com.example.mycomposeapplication.domain.models.ImageItems
@@ -40,7 +41,7 @@ val apiModule = module {
 
     //mapper objects
     single(named("ApiGalleryItemMapper")){ ApiGalleryItemMapper() as ApiMapper<ApiGalleryItem?,GalleryImage> }
-    single(named("ApiImageItemsMapper")) { ApiImageItemsMapper() as ApiMapper<ApiImageItems?, ImageItems?>}
+    single(named("ApiImageItemsMapper")) { ApiImageItemsMapper() as ApiMapper<ArrayList<ApiImageItem>?, ImageItems?>}
 }
 
 fun provideSharedPrefs(androidApplication: Application):SharedPreferences {

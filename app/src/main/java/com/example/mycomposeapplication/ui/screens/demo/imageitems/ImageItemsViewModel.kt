@@ -19,7 +19,7 @@ class ImageItemsViewModel(private val imageItemsUseCase: FetchImageItemsUseCase)
     override fun handleEvent(event: ImageItemsContract.Event) {
         when(event){
             is ImageItemsContract.Event.OnInit ->{
-//                fetchImageItems(event.album)
+                fetchImageItems(event.album)
             }
             else ->{}
         }

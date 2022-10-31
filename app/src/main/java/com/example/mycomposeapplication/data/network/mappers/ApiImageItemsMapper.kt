@@ -5,11 +5,11 @@ import com.example.mycomposeapplication.data.network.models.ApiImageItems
 import com.example.mycomposeapplication.domain.models.ImageItem
 import com.example.mycomposeapplication.domain.models.ImageItems
 
-class ApiImageItemsMapper: ApiMapper<ApiImageItems?, ImageItems?> {
-    override fun mapToDomain(apiEntity: ApiImageItems?): ImageItems? {
+class ApiImageItemsMapper: ApiMapper<ArrayList<ApiImageItem>?, ImageItems?> {
+    override fun mapToDomain(apiEntity: ArrayList<ApiImageItem>?): ImageItems? {
         apiEntity?.let{
             return ImageItems(
-                imageItems = imageItemMapper(it.imageItems)
+                imageItems = imageItemMapper(it)
             )
         }
         return null

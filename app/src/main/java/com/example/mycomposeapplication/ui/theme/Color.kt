@@ -23,3 +23,5 @@ val GrayText = Color(0xFF7C7C7C)
 val GrayBackground = Color(0xFFF3F3F3)
 val DisabledGrayBackground = Color(0xFFE5E5E5)
 val TransparentGray = Color(0x80E5E5E5)
+
+val LightGray = Color(0xFFCCCCCC)
