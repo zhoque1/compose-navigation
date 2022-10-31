@@ -3,13 +3,16 @@ package com.example.mycomposeapplication.data.di
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.example.mycomposeapplication.data.GalleryApi
+import com.example.mycomposeapplication.data.network.mappers.ApiImageItemsMapper
 import com.example.mycomposeapplication.data.network.mappers.ApiMapper
 import com.example.mycomposeapplication.data.network.models.ApiGalleryItem
 import com.example.mycomposeapplication.data.paging.GalleryDataSource
 import com.example.mycomposeapplication.data.repository.GalleryRepositoryImpl
+import com.example.mycomposeapplication.data.repository.ImageRepositoryImpl
 import com.example.mycomposeapplication.data.repository.PAGE_SIZE
 import com.example.mycomposeapplication.domain.models.GalleryImage
 import com.example.mycomposeapplication.domain.repositories.GalleryRepository
+import com.example.mycomposeapplication.domain.repositories.ImageRepository
 
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -24,6 +27,11 @@ val repositoryModule = module {
             galleryItemMapper = get(named("ApiGalleryItemMapper")),
 
         ) as GalleryRepository
+    }
+    single { ImageRepositoryImpl(
+            apiService = get(),
+            imageItemsMapper = get(named("ApiImageItemsMapper"))
+        ) as ImageRepository
     }
 }
 

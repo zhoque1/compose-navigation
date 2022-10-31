@@ -4,9 +4,10 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.ripple.LocalRippleTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+//import androidx.compose.runtime.Composable
+//import androidx.compose.runtime.CompositionLocalProvider
+//import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -15,25 +16,27 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.*
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.mycomposeapplication.LocalCache
 import com.example.mycomposeapplication.ui.screens.*
 import com.example.mycomposeapplication.ui.GlobalViewModel
+import com.example.mycomposeapplication.ui.screens.demo.imageitems.ShowImageItemsScreen
 import com.example.mycomposeapplication.ui.theme.*
 import org.koin.androidx.compose.viewModel
 import timber.log.Timber
 
 
+
 @Composable
 fun NavComposeApp() {
     val navController = rememberNavController()
-    val exampleOfRootViewModel: GlobalViewModel by viewModel()
+    val globalViewModel: GlobalViewModel by viewModel()
 
 
     NavHost(navController = navController, startDestination = NavConstants.Home.route) {
@@ -60,14 +63,44 @@ fun NavComposeApp() {
         }
 
         //sub screens
-        composable(SubNavConstants.HomeDetail.route) { HomeDetailScreen(navController, exampleOfRootViewModel) }
+        composable(SubNavConstants.HomeDetail.route) { HomeDetailScreen(navController, globalViewModel) }
         composable(SubNavConstants.StateExample.route) { StateExampleScreen(navController) }
 
 
-        composable(SubNavConstants.WidgetsDetail.route) { WidgetDetailScreen(navController, exampleOfRootViewModel) }
-        composable(SubNavConstants.AnimationDetail.route) { AnimationDetailScreen(navController, exampleOfRootViewModel) }
-        composable(SubNavConstants.DemoUIDetail.route) { DemoDetailScreen(navController, exampleOfRootViewModel) }
-        composable(SubNavConstants.TemplateDetail.route) { TemplateDetailScreen(navController, exampleOfRootViewModel) }
+        composable(SubNavConstants.WidgetsDetail.route) { WidgetDetailScreen(navController, globalViewModel) }
+        composable(SubNavConstants.AnimationDetail.route) { AnimationDetailScreen(navController, globalViewModel) }
+        composable(SubNavConstants.DemoUIDetail.route) {
+            DemoDetailScreen(
+                onClose = {
+                    LocalCache.backToDemoDetailScreen = false
+                    navController.popBackStack()
+                },
+                onNav = { album ->
+                    navController.navigate("ImageItemsScreen.ImageItems.route/${album}")
+                }
+            )
+        }
+
+        composable(
+            route = "ImageItemsScreen.ImageItems.route/{album}",
+            arguments = listOf(
+                navArgument(name = "album") {
+                    type = NavType.StringType
+                }
+            )
+        ){ entry ->
+            entry.arguments?.getString("album")?.let{
+                ShowImageItemsScreen (
+                    album = it,
+                    onClose = {
+                        LocalCache.backToDemoDetailScreen = true
+                        navController.popBackStack()
+                    }
+                )
+            }
+        }
+
+        composable(SubNavConstants.TemplateDetail.route) { TemplateDetailScreen(navController, globalViewModel) }
     }
 }
 

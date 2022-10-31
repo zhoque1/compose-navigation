@@ -22,3 +22,7 @@ sealed class SubNavConstants(val route: String){
     object DemoUIDetail : SubNavConstants("DemoDetail")
     object TemplateDetail : SubNavConstants("TemplateDetail")
 }
+
+sealed class ImageItemsScreen(val route: String){
+    object ImageItems: ImageItemsScreen("image-items")
+}

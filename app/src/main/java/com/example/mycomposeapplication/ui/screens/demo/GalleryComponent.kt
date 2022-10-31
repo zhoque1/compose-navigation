@@ -1,6 +1,5 @@
 package com.example.mycomposeapplication.ui.screens.demo
 
-import android.content.Context
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -32,6 +31,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.example.mycomposeapplication.LocalCache
 import com.example.mycomposeapplication.domain.models.GalleryImage
 import com.google.accompanist.coil.rememberCoilPainter
 import kotlinx.coroutines.flow.Flow
@@ -45,19 +45,21 @@ import timber.log.Timber
 //}
 
 @Composable
-fun GalleryList(modifier: Modifier = Modifier, context: Context) {
+fun GalleryList(onNav: (album: String) -> Unit) {
     val galleryViewModel: GalleryViewModel by viewModel()
 
     LaunchedEffect(true) {
-        galleryViewModel.setEvent(
-            GalleryContract.Event.OnInit
-        )
+        if(!LocalCache.backToDemoDetailScreen){
+            galleryViewModel.setEvent(
+                GalleryContract.Event.OnInit
+            )
+        }
     }
 
     when(val state = galleryViewModel.uiState.value.galleryState){
         is GalleryContract.GalleryState.GalleryResponseSuccess ->{
             Timber.d("test : GalleryResponseSuccess")
-            ShowGalleryList(modifier, galleryList = state.gallery, context)
+            ShowGalleryList(galleryList = state.gallery, onNav)
         }
         else -> {}
     }
@@ -66,9 +68,8 @@ fun GalleryList(modifier: Modifier = Modifier, context: Context) {
 
 @Composable
 fun ShowGalleryList(
-    modifier: Modifier,
     galleryList: Flow<PagingData<GalleryImage>>,
-    context: Context
+    onNav: (album: String) -> Unit
 ) {
 
     val galleryListItems: LazyPagingItems<GalleryImage> = galleryList.collectAsLazyPagingItems()
@@ -80,7 +81,7 @@ fun ShowGalleryList(
                 GalleryItem(
                     galleryItemData = it,
                     onClick = {
-//                        onItemClicked(it.id)
+                        onNav(it.id.toString())
                     })
             }
         }

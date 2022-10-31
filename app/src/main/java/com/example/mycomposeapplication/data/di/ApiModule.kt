@@ -9,9 +9,12 @@ import com.example.mycomposeapplication.data.network.interceptors.HeaderIntercep
 import com.example.mycomposeapplication.data.network.interceptors.NetworkStatusInterceptor
 import com.example.mycomposeapplication.data.network.interceptors.SimpleAuthInterceptor
 import com.example.mycomposeapplication.data.network.mappers.ApiGalleryItemMapper
+import com.example.mycomposeapplication.data.network.mappers.ApiImageItemsMapper
 import com.example.mycomposeapplication.data.network.mappers.ApiMapper
 import com.example.mycomposeapplication.data.network.models.ApiGalleryItem
+import com.example.mycomposeapplication.data.network.models.ApiImageItems
 import com.example.mycomposeapplication.domain.models.GalleryImage
+import com.example.mycomposeapplication.domain.models.ImageItems
 
 
 import okhttp3.OkHttpClient
@@ -37,7 +40,7 @@ val apiModule = module {
 
     //mapper objects
     single(named("ApiGalleryItemMapper")){ ApiGalleryItemMapper() as ApiMapper<ApiGalleryItem?,GalleryImage> }
-
+    single(named("ApiImageItemsMapper")) { ApiImageItemsMapper() as ApiMapper<ApiImageItems?, ImageItems?>}
 }
 
 fun provideSharedPrefs(androidApplication: Application):SharedPreferences {

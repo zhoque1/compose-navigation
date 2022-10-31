@@ -6,21 +6,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.example.mycomposeapplication.ui.navigation.NavConstants
-import com.example.mycomposeapplication.ui.GlobalViewModel
 import com.example.mycomposeapplication.ui.screens.demo.GalleryScreen
+import timber.log.Timber
 
 @Composable
-fun DemoDetailScreen(navController: NavHostController, exampleOfRootViewModel: GlobalViewModel) {
+fun DemoDetailScreen(
+    onClose: () -> Unit,
+    onNav: (album: String) -> Unit) {
     Column {
-        Button(onClick = { navController.navigate(NavConstants.DemoUI.route) }) {
+        Button(onClick = onClose) {
             Text(text = "Back to Demo")
         }
         Spacer(modifier = Modifier.size(20.dp))
-        GalleryScreen(
-            navController = navController
-        )
+        Timber.d("test : DemoDetailScreen")
+        GalleryScreen(onNav)
     }
 }
 

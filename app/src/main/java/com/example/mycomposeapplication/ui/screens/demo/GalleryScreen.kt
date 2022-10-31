@@ -1,13 +1,12 @@
 package com.example.mycomposeapplication.ui.screens.demo
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavHostController
+import timber.log.Timber
 
 @Composable
-fun GalleryScreen(navController: NavHostController) {
+fun GalleryScreen(onNav: (album: String) -> Unit) {
 //    val galleryViewModel: GalleryViewModel by viewModel()
 //    GalleryList(viewModel = galleryViewModel, context = LocalContext.current)
 
-    GalleryList(context = LocalContext.current)
+    GalleryList(onNav)
 }
